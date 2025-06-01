@@ -1,6 +1,8 @@
-import { assets, serviceData } from '@/assets/assets'
-import Image from 'next/image'
-import React from 'react'
+import { assets, serviceData } from '@/assets/assets'; // Keep assets import for right_arrow
+import Image from 'next/image';
+import React from 'react';
+
+// Removed generateSlug function
 
 const Services = () => {
   return (
@@ -15,16 +17,17 @@ const Services = () => {
             I'm a fronted developer from Indonesia, with 8 years of experience in multiple companies like microsot, Tesla and Apple
         </p>
         <div className='grid grid-cols-auto gap-6 my-10'>
-            {serviceData.map(({icon, title, description, link }, index) => (
-                <div key={index} className='border border-gray-400 rounded-lg px-8 py-12 hover:shadow-black cursor-pointer hover:bg-violet-50 
-                    hover:-translate-y-1 duration-500 dark:hover:bg-darkHover dark:hover:shadow-white' >   
-                    <Image src={icon} alt='' className='w-10'/>
-                    <h3 className='text-lg my-4 text-gray-700 dark:text-white'>{title}</h3>  
+            {serviceData.map(({icon, title, description, link }, index) => ( // Destructure 'link'
+                <div key={index} className='border border-gray-400 rounded-lg px-8 py-12 group hover:shadow-black cursor-pointer hover:bg-violet-50
+                    hover:-translate-y-1 duration-500 dark:hover:bg-darkHover dark:hover:shadow-white' >
+                    <Image src={icon} alt={title} className='w-10'/> {/* Keep alt={title} */}
+                    <h3 className='text-lg my-4 text-gray-700 dark:text-white'>{title}</h3>
                     <p className='text-sm text-gray-600 leading-5 dark:text-white'>
                         {description}
                     </p>
-                    <a href={link} className='flex items-center gap-2 text-sm mt-5'>
-                        Read more <Image alt='' src={assets.right_arrow} className='w-4'/>
+                    {/* Reverted to <a> tag using item.link */}
+                    <a href={link || '#'} className='flex items-center gap-2 text-sm mt-5 text-violet-600 group-hover:text-violet-800 dark:text-violet-400 dark:group-hover:text-violet-300'>
+                        Read more <Image alt='read more arrow' src={assets.right_arrow} className='w-4'/>
                     </a>
                 </div>
             ))}
@@ -33,4 +36,4 @@ const Services = () => {
   )
 }
 
-export default Services
+export default Services;
